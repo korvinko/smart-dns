@@ -1,4 +1,3 @@
-version: '3'
 services:
   nginx-proxy:
     build: .
@@ -12,15 +11,16 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - nginx-proxy-net
-  dnsmasq:
-    build: dnsmasq/.
-    image: rohammosalli/dnsmasq:v1
-    container_name: dnsmasq-proxy
+  smartdns-rs:
+    image: pikuzheng/smartdns-rs
+    container_name: smartdns-rs
     restart: always
     ports:
       - "53:53/udp"
     volumes:
-      - ./dnsmasq/proxy.conf:/etc/dnsmasq.d/proxy.conf  
+      - ./smartdns/smartdns.conf:/etc/smartdns/smartdns.conf
+      - /etc/letsencrypt/live/YOUR_DOMAIN/fullchain.pem:/etc/smartdns/fullchain.pem
+      - /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem:/etc/smartdns/privkey.pem
     networks:
       - nginx-proxy-net  
 networks:

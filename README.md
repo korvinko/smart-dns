@@ -12,7 +12,7 @@ Requirements
 - [VPS](https://www.digitalocean.com/products/droplets/) 
 
 #### Obtain SSL certificate 
-`sudo certbot certonly --standalone -d yourdomain.com`
+`sudo certbot certonly --standalone -d www.EXAMPLE.com`
 
 #### Run it by yourself 
 :warning: Make sure ports 80, 443 and 53 are not used in your system
@@ -35,8 +35,9 @@ if you don't like to build your image every time, you can uncomment these lines 
 
 ```Dockerfile
 volumes:
-  # Host:container
-  - dnsmasq/proxy.conf:/etc/dnsmasq.d/proxy.conf
+      - ./smartdns/smartdns.conf:/etc/smartdns/smartdns.conf
+      - /etc/letsencrypt/live/www.EXAMPLE.com/fullchain.pem:/etc/smartdns/fullchain.pem
+      - /etc/letsencrypt/live/www.EXAMPLE.com/privkey.pem:/etc/smartdns/privkey.pem
 ```
 
 #### for example: 
@@ -51,7 +52,7 @@ you can Build your images:
 
 ```bash
 docker build -t  rohammosalli/nginx-proxy:v1 .
-#docker build -t rohammosalli/dnsmasq:v1 dnsmasq/
+docker pull pikuzheng/smartdns-rs
 ```
 
 #### Run Smart DNS

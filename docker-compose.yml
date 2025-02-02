@@ -19,8 +19,8 @@ services:
       - "53:53/udp"
     volumes:
       - ./smartdns/smartdns.conf:/etc/smartdns/smartdns.conf
-      - /etc/letsencrypt/live/YOUR_DOMAIN/fullchain.pem:/etc/smartdns/fullchain.pem
-      - /etc/letsencrypt/live/YOUR_DOMAIN/privkey.pem:/etc/smartdns/privkey.pem
+      - /etc/letsencrypt/live/www.awsvpn.publicvm.com/fullchain.pem:/etc/smartdns/fullchain.pem
+      - /etc/letsencrypt/live/www.awsvpn.publicvm.com/privkey.pem:/etc/smartdns/privkey.pem
     networks:
       - nginx-proxy-net  
 networks:
